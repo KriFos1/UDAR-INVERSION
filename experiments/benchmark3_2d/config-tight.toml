@@ -1,0 +1,21 @@
+# As config.toml, with every solve at tolerance 1e-6 (the setting of the earlier direct chains).
+# Slower, and at the faults of this benchmark the 2D solver stalls just above 1e-6 on some
+# trial models, so searches there can end above the target. Kept for comparison.
+
+[run]
+dimension = 2
+start = 0
+output = "runs/tight"
+
+[data]
+path = "../../data/udar-benchmarks/Benchmark-3"
+outputs = "outputs_2D"
+floors = { USDP = 0.5, USDA = 0.25 }
+
+[solver]
+binary = "$UDARINV_FWD2D"
+launcher = "local"
+threads = 8
+
+[search]
+tolerance_schedule = [[0.0, 1e-6]]

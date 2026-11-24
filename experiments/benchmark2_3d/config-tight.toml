@@ -1,0 +1,21 @@
+# As config.toml, with every solve at tolerance 1e-6 (the setting of the earlier direct 3D chain).
+# About 1.7 times the solver time per solve. Kept for comparison.
+
+[run]
+dimension = 3
+start = 332
+stop = 482
+output = "runs/tight"
+
+[data]
+path = "../../data/udar-benchmarks/Benchmark-2"
+outputs = "outputs_3D"
+floors = { USDP = 0.5, USDA = 0.25 }
+
+[solver]
+binary = "$UDARINV_FWD3D"
+launcher = "local"
+threads = 8
+
+[search]
+tolerance_schedule = [[0.0, 1e-6]]

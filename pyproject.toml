@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "udar-inversion"
+version = "0.1.0"
+description = "Sequential 2D/3D look-around resistivity inversion of UDAR data with closed-form Laplace moments"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "h5py>=3.9",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.8", "pillow>=10"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+udarinv = "udarinv.cli:main"
+udarinv-plot = "udarinv_plot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "solver: needs a fwd2D / fwd3D build (UDARINV_FWD2D / UDARINV_FWD3D) and benchmark data (UDARINV_DATA)",
+]

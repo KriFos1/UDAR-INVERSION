@@ -1,0 +1,24 @@
+# Benchmark-3 (2D model with faults, 281 logging points), 2D inversion at every point.
+# The solver tolerance follows the misfit of the current model: 3e-3 while chi2/n is above 12,
+# 1e-3 below. On this benchmark the response of a MAP model at 1e-3 differs from the one at
+# 1e-6 by about 0.01 standard deviations, and the solver does not stall at the faults.
+# Run from this folder:  UDARINV_FWD2D=/path/to/build/fwd2D udarinv run config.toml
+
+[run]
+dimension = 2
+start = 0
+output = "runs/chain"
+
+[data]
+path = "../../data/udar-benchmarks/Benchmark-3"
+outputs = "outputs_2D"
+floors = { USDP = 0.5, USDA = 0.25 }        # degrees, dB
+
+[solver]
+binary = "$UDARINV_FWD2D"
+launcher = "local"
+threads = 8
+
+[search]
+tolerance_schedule = [[12.0, 3e-3], [0.0, 1e-3]]
+tolerance_retries = 3
